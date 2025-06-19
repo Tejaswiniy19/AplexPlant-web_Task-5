@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tejaswini Yerra - Portfolio</title>
+  <style>
+    :root {
+      --bg-color: #fff;
+      --text-color: #000;
+      --accent-color: #3498db;
+    }
+
+    body.dark {
+      --bg-color: #1e1e1e;
+      --text-color: #f0f0f0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+  
+    body {
+      font-family: sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    header, footer {
+      background: var(--accent-color);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--accent-color);
+      padding: 1rem;
+      z-index: 999;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      color: white;
+      text-decoration: none;
+    }
+
+    nav button {
+      margin-left: 1rem;
+      padding: 0.5rem 1rem;
+      background: white;
+      color: var(--accent-color);
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    section {
+      padding: 2rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .project-card {
+      background: var(--bg-color);
+      border: 1px solid var(--accent-color);
+      padding: 1rem;
+      border-radius: 10px;
+    }
+
+    form input, form textarea, form button {
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    form button {
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .todo-container {
+      max-width: 500px;
+      margin: auto;
+      background: var(--bg-color);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .todo-container h2 {
+      text-align: center;
+    }
+
+    .todo-container input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    .todo-container button {
+      padding: 10px 15px;
+      font-size: 16px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+
+    .todo-container ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    .todo-container li {
+      background: #eee;
+      padding: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      border-radius: 6px;
+    }
+
+    .remove {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+
+    .box {
+      background: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    img[loading="lazy"] {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .filter-container {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+
+    .filter-container input {
+      width: 300px;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 40px;
+      right: 30px;
+      display: none;
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Tejaswini Yerra</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+      <button id="theme-toggle">🌙 Dark Mode</button>
+    </nav>
+  </header>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I am a frontend developer passionate about building modern web applications.</p>
+  </section>
+
+  <section id="projects">
+    <h2>My Projects</h2>
+    <div class="filter-container">
+      <input type="text" id="projectFilter" placeholder="Filter projects by name...">
+    </div>
+    <div id="project-container" class="grid"></div>
+    <div class="box">
+      <h2>Responsive Design</h2>
+      <button onclick="toggleSection('responsive-content')">Toggle Info</button>
+      <div id="responsive-content" class="hidden">
+        <p>This layout adapts to screen size using CSS media queries.</p>
+        <p>Resize the browser to see it adjust for mobile, tablet, and desktop.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="todo-container">
+      <h2>🗒️ To-Do List</h2>
+      <input type="text" id="taskInput" placeholder="Enter a new task...">
+      <button onclick="addTask()">Add</button>
+      <ul id="taskList"></ul>
+    </div>
+  </section>
+<!-- ADD THIS SECTION BEFORE CONTACT SECTION -->
+<section id="products" class="section">
+  <h2>Product Gallery</h2>
+  <div class="filters">
+    <select id="categoryFilter">
+      <option value="all">All Categories</option>
+      <option value="Book">Book</option>
+      <option value="Charger">Charger</option>
+      <option value="Headphones">Headphones</option>
+      <option value="Laptop">Laptop</option>
+      <option value="Notebook">Notebook</option>
+    </select>
+
+    <select id="priceFilter">
+      <option value="all">All Prices</option>
+      <option value="0-100">Under $100</option>
+      <option value="100-1000">$100 - $1000</option>
+      <option value="1000-5000">$1000 - $5000</option>
+      <option value="5000-100000">Above $5000</option>
+    </select>
+
+    <select id="sortFilter">
+      <option value="default">Sort by</option>
+      <option value="name">Name</option>
+      <option value="priceAsc">Price (Low to High)</option>
+      <option value="priceDesc">Price (High to Low)</option>
+    </select>
+  </div>
+  <div class="gallery" id="productGallery" style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 1rem;"></div>
+</section>
+
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <form id="contact-form">
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Your Name" required />
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Your Email" required />
+      <label for="message">Message</label>
+      <textarea id="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+    <p id="form-status"></p>
+  </section>
+
+  <footer>
+    <p>© 2025 Tejaswini Yerra</p>
+
+  </footer>
+
+  <button id="scrollTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆️ Top</button>
+
+  <script>
+    document.getElementById('theme-toggle').onclick = () => {
+      document.body.classList.toggle('dark');
+      document.getElementById('theme-toggle').textContent = 
+        document.body.classList.contains('dark') ? '☀️ Light Mode' : '🌙 Dark Mode';
+    };
+
+    window.onscroll = () => {
+      document.getElementById('scrollTopBtn').style.display = 
+        window.scrollY > 300 ? 'block' : 'none';
+    };
+
+    const projectsData = [
+      {
+        title: "Responsive Blog",
+        description: "A responsive blog layout built with HTML & CSS.",
+        link: "#",
+        image: "blog.jpg"
+      },
+      {
+        title: "To-Do List",
+        description: "A simple to-do app with local storage support.",
+        link: "#",
+        image: "todo.jpg"
+      },
+      {
+        title: "Product Filter Gallery",
+        description: "A product filtering interface using JavaScript.",
+        link: "#",
+        image: "gallery.jpg"
+      },
+      {
+        title: "Contact Form Validation",
+        description: "A styled contact form with JavaScript validation.",
+        link: "#",
+        image: "contact.jpg"
+      }
+    ];
+       
+    const container = document.getElementById('project-container');
+
+    function renderProjects(filterText = '') {
+      container.innerHTML = '';
+      projectsData
+        .filter(project => project.title.toLowerCase().includes(filterText.toLowerCase()))
+        .forEach(project => {
+          const card = document.createElement('div');
+          card.className = 'project-card';
+          card.innerHTML = `
+            <h3>${project.title}</h3>
+            <p>${project.description}</p>
+            <a href="${project.link}" target="_blank">View Project</a>
+            <img src="${project.image}" alt="${project.title}" loading="lazy">
+          `;
+          container.appendChild(card);
+        });
+    }
+
+    document.getElementById('projectFilter').addEventListener('input', (e) => {
+      renderProjects(e.target.value);
+    });
+
+    renderProjects();
+
+    function addTask() {
+      const taskInput = document.getElementById("taskInput");
+      const taskText = taskInput.value.trim();
+      if (taskText === "") {
+        alert("Please enter a task!");
+        return;
+      }
+
+      const li = document.createElement("li");
+      li.textContent = taskText;
+
+      const removeBtn = document.createElement("button");
+      removeBtn.textContent = "Remove";
+      removeBtn.className = "remove";
+      removeBtn.onclick = function () {
+        li.remove();
+      };
+
+      li.appendChild(removeBtn);
+      document.getElementById("taskList").appendChild(li);
+      taskInput.value = "";
+    }
+
+    function toggleSection(id) {
+      const el = document.getElementById(id);
+      el.classList.toggle('hidden');
+    }
+
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const status = document.getElementById('form-status');
+
+      if (!name || !email || !message) {
+        status.textContent = '❗ Please fill in all fields.';
+        status.style.color = 'red';
+        return;
+      }
+
+      status.textContent = '✅ Thank you! Your message has been sent.';
+      status.style.color = 'green';
+      this.reset();
+    });
+  </script>
+  <!-- ADD THIS SCRIPT BLOCK INTO YOUR EXISTING <script> TAG -->
+<script>
+  const products = [
+    { name: "Book", price: 100, img: "Book.jpg" },
+    { name: "Charger", price: 1500, img: "charger.jpg" },
+    { name: "Headphones", price: 3000, img: "headphones.jpg" },
+    { name: "Laptop", price: 99999, img: "laptop.jpg" },
+    { name: "Notebook", price: 30, img: "notebook.jpg" }
+  ];
+
+  const gallery = document.getElementById("productGallery");
+  const categoryFilter = document.getElementById("categoryFilter");
+  const priceFilter = document.getElementById("priceFilter");
+  const sortFilter = document.getElementById("sortFilter");
+
+  function renderProducts() {
+    let filtered = [...products];
+    const category = categoryFilter.value;
+    const price = priceFilter.value;
+    const sort = sortFilter.value;
+
+    if (category !== "all") {
+      filtered = filtered.filter(p => p.name.toLowerCase() === category.toLowerCase());
+    }
+
+    if (price !== "all") {
+      const [min, max] = price.split("-").map(Number);
+      filtered = filtered.filter(p => p.price >= min && p.price <= max);
+    }
+
+    if (sort === "name") {
+      filtered.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sort === "priceAsc") {
+      filtered.sort((a, b) => a.price - b.price);
+    } else if (sort === "priceDesc") {
+      filtered.sort((a, b) => b.price - a.price);
+    }
+
+    gallery.innerHTML = '';
+    filtered.forEach(p => {
+      const div = document.createElement("div");
+      div.className = "product";
+      div.style.border = "1px solid #ccc";
+      div.style.borderRadius = "8px";
+      div.style.padding = "1rem";
+      div.style.textAlign = "center";
+      div.style.background = "var(--bg-color)";
+      div.innerHTML = `
+        <img src="${p.img}" alt="${p.name}" style="width:100%; height:auto; border-radius:8px;" />
+        <h3>${p.name}</h3>
+        <p>Price: $${p.price.toLocaleString()}</p>
+      `;
+      gallery.appendChild(div);
+    });
+  }
+
+  categoryFilter.onchange = renderProducts;
+  priceFilter.onchange = renderProducts;
+  sortFilter.onchange = renderProducts;
+
+  renderProducts();
+</script>
+
+</body>
+</html>
